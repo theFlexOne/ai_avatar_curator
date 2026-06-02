@@ -10,6 +10,7 @@ These rules ensure consistency and quality across the AI Avatar Curator reposito
 - **Dependencies:** Add new packages to `requirements.txt` or `pyproject.toml` immediately.
 
 ## 2. Repository Hygiene
+- **Testing:** Add essential tests for core logic (scrapers, filters, processors) to validate the current implementation plan. Focus on covering key workflows and edge cases that impact project progress.
 - **Commit Messages:** Use Conventional Commits (e.g., `feat:`, `fix:`, `docs:`, `chore:`).
 - **Branching:** Use descriptive branch names (e.g., `feature/serpapi-integration`).
 - **Secret Management:** Never commit API keys. Use `.env` files and `python-dotenv`.
@@ -19,8 +20,3 @@ These rules ensure consistency and quality across the AI Avatar Curator reposito
 - **Immutability:** Never modify files in `data/raw/` once downloaded. Create processed copies in `data/processed/`.
 - **Reproducibility:** Every dataset version should be traceable to a specific search query or source list.
 - **Privacy:** If using images of non-public figures, ensure compliance with local data protection laws (e.g., GDPR).
-
-## 4. AI Interaction Rules
-- **Verification:** AI agents must verify the existence of a file before attempting to read it.
-- **Safety:** Always run shell commands with a timeout and check return codes.
-- **Explanation:** Provide a brief summary of changes before applying large edits.

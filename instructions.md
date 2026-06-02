@@ -2,7 +2,16 @@
 
 This document provides specialized instructions for AI agents working on the AI Avatar Curator project. The primary goal is to automate the creation of high-quality facial datasets.
 
-## 1. Data Acquisition Workflow
+## Project Phases
+- **Phase 1: Project Scaffolding & Infrastructure** - Setup repository, rules, and core schemas.
+- **Phase 2: Data Acquisition & Retrieval** - Bulk scraping from multiple sources with deduplication.
+- **Phase 3: Quality Control - Basic Filtering** - Sharpness, resolution, and brightness checks.
+- **Phase 4: Face Analysis & AI Recognition** - Face detection and embedding-based identity verification.
+- **Phase 5: Image Processing & Normalization** - Smart cropping, alignment, and format optimization.
+- **Phase 6: Human-in-the-Loop Validation (UI)** - Streamlit dashboard for final approval.
+- **Phase 7: Pipeline Orchestration & Optimization** - End-to-end automation and performance tuning.
+
+## 1. Data Acquisition Workflow (Phase 2)
 
 The data acquisition process is divided into two primary phases:
 1. **Initial Aggregation:** A broad, slightly fuzzy search (including reverse image search) to cast a wide net across multiple sources.
@@ -26,19 +35,19 @@ The data acquisition process is divided into two primary phases:
     - `data/processed/`: Final, high-quality, cropped, and aligned dataset.
 - **Metadata:** Store image source URL, timestamp, and original filename in a `metadata.json` file.
 
-### 1.3 Filtering & Quality Assessment
-- **Facial Recognition & Human Validation:**
+### 1.3 Filtering & Quality Assessment (Phases 3 & 4)
+- **Facial Recognition & Human Validation (Phase 4):**
     - Use `face_recognition` or `Mediapipe` to detect faces and generate embeddings.
     - Discard images with multiple faces or no faces.
     - **AI Validation:** Automatically compare detected faces against a reference embedding to filter out different individuals.
-    - **Human-in-the-Loop:** Implement a verification step (UI or CLI) for manual review of borderline AI scores and final dataset validation.
-- **Sharpness Check:**
+    - **Human-in-the-Loop (Phase 6):** Implement a verification step (UI or CLI) for manual review of borderline AI scores and final dataset validation.
+- **Sharpness Check (Phase 3):**
     - Calculate the Laplacian variance (OpenCV).
     - Threshold: Discard images with a variance below a configurable limit (e.g., 100).
 - **Occlusion & Pose:**
     - Use landmark detection to ensure the face is mostly frontal (yaw/pitch/roll within bounds).
     - Discard images where eyes or mouth are significantly occluded.
-- **Resolution:** Minimum face size should be 224x224 pixels or higher depending on the target model.
+- **Resolution (Phase 3):** Minimum face size should be 224x224 pixels or higher depending on the target model.
 
 ## 2. Implementation Guidelines for AI
 - **Code Style:** Prefer Python 3.10+ features (type hints, f-strings, pathlib).
