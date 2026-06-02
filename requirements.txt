@@ -1,0 +1,16 @@
+# Core
+requests
+aiohttp
+python-dotenv
+pyyaml
+tqdm
+
+# Image Processing & AI
+opencv-python-headless
+face_recognition
+numpy
+pillow
+
+# Quality & Dev
+ruff
+pytest
