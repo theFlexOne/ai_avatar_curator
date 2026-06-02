@@ -14,6 +14,12 @@ class ImageSource(str, Enum):
 
 class ProcessingStatus(str, Enum):
     RAW = "raw"
+    FILTERED_PASS = "filtered_pass"
+    FILTERED_FAIL = "filtered_fail"
+    FACE_PASS = "face_pass"
+    FACE_FAIL = "face_fail"
+    ID_PASS = "id_pass"
+    ID_FAIL = "id_fail"
     INTERIM = "interim"
     PROCESSED = "processed"
     REJECTED = "rejected"
@@ -31,6 +37,7 @@ class FaceMetrics(BaseModel):
     sharpness_score: float = Field(..., description="Laplacian variance score indicating blurriness")
     similarity_score: Optional[float] = Field(None, description="Cosine similarity score against reference embedding")
     pose: Optional[Pose] = Field(None, description="Estimated head pose")
+    landmarks: Optional[dict[str, List[Tuple[int, int]]]] = Field(None, description="Facial landmarks (eyes, nose, mouth)")
     has_occlusions: Optional[bool] = Field(None, description="Whether eyes/mouth are significantly occluded")
     
 class ScrapedImageResult(BaseModel):
@@ -57,6 +64,7 @@ class ImageMetadata(BaseModel):
     timestamp: datetime = Field(default_factory=datetime.utcnow)
     local_path: Optional[str] = Field(None, description="Local path in data/raw or data/interim")
     status: ProcessingStatus = Field(default=ProcessingStatus.RAW)
+    face_metrics: Optional[FaceMetrics] = None
     error_message: Optional[str] = Field(None, description="Reason if the status is REJECTED")
     
 class CuratedAvatar(BaseModel):
@@ -80,5 +88,6 @@ class SearchConfig(BaseModel):
     """Configuration for search operations."""
     query: str
     engines: List[str] = Field(default_factory=lambda: ["google", "yandex", "bing"])
-    max_results: int = Field(default=100)
+    max_results: int = Field(default=10)
+    offset: int = Field(default=0, description="Pagination offset (e.g., page index or result count)")
     reference_images: List[str] = Field(default_factory=list, description="Paths to reference images for reverse search/embeddings")

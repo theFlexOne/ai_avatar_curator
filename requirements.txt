@@ -2,6 +2,7 @@
 requests
 aiohttp
 playwright
+beautifulsoup4
 python-dotenv
 pyyaml
 pydantic
@@ -11,7 +12,6 @@ httpx
 
 # Image Processing & AI
 opencv-python-headless
-face_recognition
 numpy
 pillow
 

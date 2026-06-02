@@ -36,7 +36,11 @@ async def test_scraper_manager_full_flow(mock_directories):
     mock_image_bytes = b'\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x01\x00\x48\x00\x48\x00\x00' + b'\x00' * 5000 + b'\xff\xd9'
 
     with respx.mock(assert_all_called=False) as respx_mock:
-        respx_mock.get(url__startswith="https://serpapi.com/search").respond(json=mock_serpapi_response)
+        # First call (page 0) returns 2 results
+        respx_mock.get(url__startswith="https://serpapi.com/search", params={"ijn": "0"}).respond(json=mock_serpapi_response)
+        # Second call (page 1) returns empty to break the loop
+        respx_mock.get(url__startswith="https://serpapi.com/search", params={"ijn": "1"}).respond(json={"images_results": []})
+        
         respx_mock.get("https://example.com/image1.jpg").respond(content=mock_image_bytes, headers={"Content-Type": "image/jpeg"})
         respx_mock.get("https://example.com/image2.jpg").respond(content=mock_image_bytes, headers={"Content-Type": "image/jpeg"})
         
