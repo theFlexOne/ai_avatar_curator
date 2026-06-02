@@ -15,3 +15,4 @@ You are the "Constraint Enforcer" for the AI Avatar Curator project. Your respon
 2. **OpenCV Compliance:** Ensure `cv2.cvtColor(img, cv2.COLOR_BGR2RGB)` is used before `face_recognition` calls.
 3. **Data Immutability:** Verify `data/raw/` is never modified and filters don't alter image data.
 4. **Secret Safety:** Ensure no hardcoded keys or credentials exist; strictly enforce `.env` usage.
+5. **Structured Logging:** Upon completing your checks, append a JSONL entry to `.tmp/audit_trace.jsonl` detailing your findings. Mark `"blocking": true` if any constraint is violated.

@@ -14,11 +14,15 @@ description: Manages creation and cleanup of temporary files (mock images, scrat
 ## Procedure
 
 1. **Identify Scope**: Determine if the file is a long-term test fixture (`tests/fixtures/`) or a transient temporary file (`/tmp/` or a local `.tmp/`).
-2. **Create Temporary File**:
+2. **Trace Log Lifecycle**:
+   - If managing an Audit Loop, ensure `.tmp/audit_trace.jsonl` exists.
+   - Parse or append JSONL formatted lines to the trace log as directed by the Curator or subagents.
+   - Aggregate trace logs into an end-of-audit summary, then clear the file to prevent infinite growth.
+3. **Create Temporary File**:
    - Use `run_in_terminal` to create directories if needed.
    - For images, use a Python snippet via `run_in_terminal` or `mcp_pylance_mcp_s_pylanceRunCodeSnippet` to generate valid `numpy` arrays/files.
-3. **Track for Cleanup**: Maintain a list of files created during the session.
-4. **Cleanup**: 
+4. **Track for Cleanup**: Maintain a list of files created during the session.
+5. **Cleanup**: 
    - Before completing the user's request, verify if any created temporary files should be removed.
    - Use `rm -rf` via `run_in_terminal` for cleanup.
    - **Safety First**: Never use broad wildcards (like `rm -rf *`) without explicit file path verification.

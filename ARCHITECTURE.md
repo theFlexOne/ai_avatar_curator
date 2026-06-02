@@ -59,3 +59,8 @@ Custom routines that provide the AI with specific procedures:
 *   **Temporary Artifacts:** Managed via the `manage-tmp-files` skill for transient data like mock downloads or scratchpads (typically stored in `.tmp/`).
 *   **Makefile Automation:** Commands for pipeline execution (`make scrape`, `make process`, `make ui`).
 *   **Linter/Formatter:** `ruff` for strict Python formatting.
+
+## 10. AI Trace Logging (`.tmp/audit_trace.jsonl`)
+A JSONL file used by the Curator and subagents to persistently record the results of the Audit Loop.
+*   **Schema:** Each line is a JSON object containing `timestamp`, `agent`, `status` (PASS/WARN/FAIL), `blocking` (boolean), `summary`, and detailed `checks`.
+*   **Gating:** The Curator reads this log and halts implementation if any agent logs a `blocking: true` failure.
