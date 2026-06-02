@@ -57,9 +57,12 @@ class ScraperManager:
                 state.images[meta.image_hash] = meta
                 new_count += 1
             else:
-                # We already have this exact image, delete the newly downloaded duplicate
-                logger.debug(f"Duplicate hash found for {meta.image_url}. Deleting local copy.")
-                Path(meta.local_path).unlink(missing_ok=True)
+                # We already have this exact image in state.
+                # Do not delete the file if the existing state entry points to the same local_path!
+                existing = state.images[meta.image_hash]
+                logger.debug(f"Duplicate hash found for {meta.source_url}. Handling local copy.")
+                if hasattr(meta, 'local_path') and meta.local_path and meta.local_path != existing.local_path:
+                    Path(meta.local_path).unlink(missing_ok=True)
                 
         logger.info(f"Added {new_count} new unique images to state.")
         return state
