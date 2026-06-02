@@ -50,8 +50,6 @@ The data acquisition process is divided into two primary phases:
 - **Resolution (Phase 3):** Minimum face size should be 224x224 pixels or higher depending on the target model.
 
 ## 2. Implementation Guidelines for AI
-- **Orchestration First:** Before starting any new phase or complex task, defer coordination to the `Curator` subagent to manage the Audit Loop.
-- **State Check:** Use the `progress-report` skill at the start of every turn to verify roadmap alignment.
 - **Code Style:** Prefer Python 3.10+ features (type hints, f-strings, pathlib).
 - **Modularity:** Separate the scraper, the filter, and the processor into distinct modules.
 - **Error Handling:** Implement robust retries for network requests and graceful failure for corrupted images.
