@@ -40,7 +40,7 @@ Physically alters image data to create the final avatar.
 *   **Configuration Loader:** Parses `config.yaml` to provide global settings like paths and API concurrency.
 
 ## 7. Agent Infrastructure (`.github/agents/`)
-*   **DocSync State (`.github/agents/docsync_state.json`):** Tracks file hashes, audit timestamps, and pending documentation discrepancies. Enables incremental and highly efficient codebase-to-documentation audits.
+*   **Documentation Aligner State (`.github/agents/documentation_aligner_state.json`):** Tracks file hashes, audit timestamps, and pending documentation discrepancies. Enables incremental and highly efficient codebase-to-documentation audits.
 *   **Custom Agents:** Specialized AI behaviors configured via `.agent.md` files:
     *   **Curator:** The Final Orchestrator. Coordinates all specialized agents through the Audit Loop.
     *   **State Manager:** Progress & State Management. Maintains the `progress_diary.md` and enforces plan-before-code.

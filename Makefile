@@ -13,7 +13,7 @@ scrape:
 	. .venv/bin/activate && python -m src.scrape $(SUBJECT)
 
 lint:
-	ruff check .
+	. .venv/bin/activate && ruff check .
 
 test:
-	pytest tests/
+	. .venv/bin/activate && pytest tests/

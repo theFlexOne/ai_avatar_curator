@@ -29,6 +29,12 @@
 - Integrated MD5 hashing for content-based deduplication during the aggregation phase.
 - Added integration tests in `tests/test_scraper_manager.py` to verify logic for filtering already-seen image URLs and hashes.
 
+## 2026-06-01: Phase 2 - Agent Infrastructure Reorganization
+- Reorganized agent infrastructure into a "5+1" specialized Curator structure.
+- Defined specific roles for subagents: State Manager, Documentation Aligner, Constraint Enforcer, Quality Enforcer, and Memory Manager.
+- Updated `ARCHITECTURE.md` with the new Audit Loop and agent responsibilities.
+- Established `.github/agents/` for agent-specific state and configuration.
+
 ## 2026-06-01: Policy Update - Pragmatic Testing
 - Refined the "tests along the way" policy to focus on **Pragmatic Testing**.
 - Priority is given to essential tests that validate core logic and keep the project on track with the implementation plan.

@@ -1,6 +1,5 @@
 import pytest
 import respx
-import httpx
 from src.scrapers.google_scraper import GoogleScraper
 from src.schemas import SearchConfig, ImageSource
 
