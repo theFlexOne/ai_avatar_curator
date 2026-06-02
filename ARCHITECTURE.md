@@ -51,5 +51,6 @@ Physically alters image data to create the final avatar.
 
 ## 8. DevTools & Quality Assurance (`tests/` & Root) - [Phase 7]
 *   **Test Fixtures:** Mock `numpy` arrays and static sample images (`tests/fixtures/`).
+*   **Temporary Artifacts:** Managed via the `manage-tmp-files` skill for transient data like mock downloads or scratchpads (typically stored in `.tmp/`).
 *   **Makefile Automation:** Commands for pipeline execution (`make scrape`, `make process`, `make ui`).
 *   **Linter/Formatter:** `ruff` for strict Python formatting.

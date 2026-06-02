@@ -11,6 +11,7 @@ These rules ensure consistency and quality across the AI Avatar Curator reposito
 
 ## 2. Repository Hygiene
 - **Testing:** Add essential tests for core logic (scrapers, filters, processors) to validate the current implementation plan. Focus on covering key workflows and edge cases that impact project progress.
+- **Temporary Files:** Use the `manage-tmp-files` skill for creating and cleaning up transient artifacts. Ensure transient files are kept out of version control (e.g., in `.tmp/`).
 - **Commit Messages:** Use Conventional Commits (e.g., `feat:`, `fix:`, `docs:`, `chore:`).
 - **Branching:** Use descriptive branch names (e.g., `feature/serpapi-integration`).
 - **Secret Management:** Never commit API keys. Use `.env` files and `python-dotenv`.

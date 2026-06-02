@@ -1,44 +1,45 @@
 ---
-name: progress-tracker
-description: 'Generates a formatted display of project progress from progress_diary.md. Shows detailed recent updates and a summarized list of older milestones. Use when asked for "progress", "updates", or "what has been done".'
-user-invocable: true
+name: progress-report
+description: Generates a comprehensive project status report including current phase, recent achievements, roadmap status, and secondary plans.
 ---
 
 # Progress Report
 
 ## When to Use
 - When the user asks for a project status update or "where do we stand".
-- To provide a high-level summary of the main project phases.
-- To highlight completed work versus upcoming milestones.
+- To summarize recent progress versus the long-term roadmap.
+- When the user wants a professional report on project health.
 
 ## Procedure
 
-1. **Read Main State**: Open `progress_diary.md` and `instructions.md` (Project Phases).
-2. **Read Secondary Context**: Check `/memories/session/plan.md` for any active secondary plans.
-3. **Generate Main Report**:
-   - **Current Standing**: Identify the current phase based on the latest entries in `progress_diary.md`.
-   - **Recent Achievements**: Summarize the 3-5 most recent bullets from the diary.
-   - **Phase Progress**: List all project phases from `instructions.md`, marking them as 🟢 (Completed), 🟡 (In Progress), or ⚪ (Not Started).
-4. **Generate Secondary Plans Summary**:
-   - If `/memories/session/plan.md` exists, list the active goals/tasks in a shortened format.
-5. **Display Output**:
-   - Use the structure below.
+1. **Audit Context**: 
+   - Read `progress_diary.md` (Recent work).
+   - Read `instructions.md` (Main roadmap phases).
+   - Read `/memories/session/plan.md` (Active secondary plans).
+2. **Phase Analysis**:
+   - Determine the **Current Phase** based on the latest diary entries.
+   - Categorize roadmap phases as 🟢 (Done), 🟡 (In Progress), or ⚪ (Pending).
+3. **Draft Report**:
+   - Focus on the 3-5 most recent achievements.
+   - List the full high-level roadmap to show overall completion.
+   - Append a concise summary of any active secondary plans.
+4. **Formatting**: Use professional headers and emoji for visual scanning.
 
-## Example Display Structure
+## Template
 
 ### 📈 Project Progress Report
-**Current Phase:** [Phase Number] - [Phase Name] (e.g. 🟡 In Progress)
+**Current Standing:** [Phase Number] - [Phase Name] ([Emoji Status])
 
-**Recent Milestones:**
+#### 🚀 Recent Achievements
 - [Achievement 1]
 - [Achievement 2]
+- [Achievement 3]
 
-**Main Roadmap:**
-- 🟢 Phase 1: Project Scaffolding
-- 🟡 Phase 2: Data Acquisition
-- ⚪ Phase 3: Quality Control
-- ... [rest of phases]
+#### 🗺️ Roadmap Status
+- 🟢 Phase 1: [Phase Name]
+- 🟡 Phase 2: [Phase Name]
+- ⚪ Phase 3: [Phase Name]
 
 ---
 ### 🗒️ Active Secondary Plans
-- **[Plan Title]**: [Brief Summary of remaining tasks]
+- **[Plan Name]**: [Short status summary]

@@ -24,3 +24,6 @@ weights/
 # Logs
 logs/
 *.log
+
+# Temporary Files
+.tmp/
