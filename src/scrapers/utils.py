@@ -21,71 +21,49 @@ class AsyncDownloader:
     async def download_image(
         self, 
         result: ScrapedImageResult, 
-        client: httpx.AsyncClient,
-        retries: int = 3
+        client: httpx.AsyncClient
     ) -> Optional[ImageMetadata]:
         """
-        Download a single image and return its metadata with retry logic.
+        Download a single image and return its metadata.
         
         Args:
             result: The scraped image result metadata.
             client: The HTTP client to use for downloading.
-            retries: Number of download attempts.
             
         Returns:
             ImageMetadata if successful, None otherwise.
         """
         async with self.semaphore:
-            for attempt in range(retries):
-                try:
-                    response = await client.get(
-                        result.image_url, 
-                        timeout=15.0, 
-                        follow_redirects=True
-                    )
-                    response.raise_for_status()
-                    
-                    content = response.content
-                    # Basic validation: Minimum size check (e.g., 1KB)
-                    if len(content) < 1024:
-                        logger.warning(f"Image too small ({len(content)} bytes): {result.image_url}")
-                        return None
-
-                    image_hash = hashlib.md5(content).hexdigest()
-                    
-                    # Determine extension
-                    ext = self._get_extension(response.headers.get("Content-Type"), result.image_url)
-                    filename = f"{image_hash}{ext}"
-                    local_path = self.raw_dir / filename
-                    
-                    # Deduplication: check if file already exists
-                    if not local_path.exists():
-                        with open(local_path, "wb") as f:
-                            f.write(content)
-                    
-                    return ImageMetadata(
-                        image_hash=image_hash,
-                        source_url=result.image_url,
-                        page_url=result.page_url,
-                        source=result.source,
-                        search_query=result.search_query,
-                        title=result.title,
-                        original_filename=filename,
-                        local_path=str(local_path),
-                        status=ProcessingStatus.RAW
-                    )
-                except httpx.HTTPStatusError as e:
-                    if e.response.status_code == 404:
-                        logger.error(f"Image not found (404): {result.image_url}")
-                        break
-                    logger.warning(f"Attempt {attempt + 1} failed for {result.image_url}: {e}")
-                except Exception as e:
-                    logger.warning(f"Attempt {attempt + 1} failed for {result.image_url}: {e}")
+            try:
+                response = await client.get(result.image_url, timeout=10.0, follow_redirects=True)
+                response.raise_for_status()
                 
-                if attempt < retries - 1:
-                    await asyncio.sleep(1 * (attempt + 1))  # Exponential backoff
-            
-            return None
+                content = response.content
+                image_hash = hashlib.md5(content).hexdigest()
+                
+                # Determine extension from content-type or URL
+                ext = self._get_extension(response.headers.get("Content-Type"), result.image_url)
+                filename = f"{image_hash}{ext}"
+                local_path = self.raw_dir / filename
+                
+                # Save to disk
+                with open(local_path, "wb") as f:
+                    f.write(content)
+                
+                return ImageMetadata(
+                    image_hash=image_hash,
+                    source_url=result.image_url,
+                    page_url=result.page_url,
+                    source=result.source,
+                    search_query=result.search_query,
+                    title=result.title,
+                    original_filename=filename,
+                    local_path=str(local_path),
+                    status=ProcessingStatus.RAW
+                )
+            except Exception as e:
+                logger.error(f"Failed to download {result.image_url}: {e}")
+                return None
 
     def _get_extension(self, content_type: Optional[str], url: str) -> str:
         """Helper to determine file extension."""

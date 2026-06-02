@@ -49,7 +49,12 @@ Physically alters image data to create the final avatar.
     *   **Quality Enforcer:** Git & Code Quality Guardrails. Enforces linting, testing, and commit standards.
     *   **Memory Manager:** Memory Maintenance. Owns repository memory and long-term project facts.
 
-## 8. DevTools & Quality Assurance (`tests/` & Root) - [Phase 7]
+## 8. Skills Infrastructure (`.github/skills/`)
+Custom routines that provide the AI with specific procedures:
+*   **progress-report:** Generates a formatted overview of the project's current phase, recent milestones, and overall roadmap.
+*   **manage-tmp-files:** Procedures for safely creating, naming, and cleaning up temporary test artifacts.
+
+## 9. DevTools & Quality Assurance (`tests/` & Root) - [Phase 7]
 *   **Test Fixtures:** Mock `numpy` arrays and static sample images (`tests/fixtures/`).
 *   **Temporary Artifacts:** Managed via the `manage-tmp-files` skill for transient data like mock downloads or scratchpads (typically stored in `.tmp/`).
 *   **Makefile Automation:** Commands for pipeline execution (`make scrape`, `make process`, `make ui`).
