@@ -1,4 +1,4 @@
-.PHONY: setup clean lint test
+.PHONY: setup clean lint test scrape
 
 setup:
 	python3 -m venv .venv
@@ -8,6 +8,9 @@ setup:
 clean:
 	rm -rf __pycache__ .pytest_cache .venv
 	find . -type d -name "__pycache__" -exec rm -rf {} +
+
+scrape:
+	. .venv/bin/activate && python -m src.scrape $(SUBJECT)
 
 lint:
 	ruff check .
