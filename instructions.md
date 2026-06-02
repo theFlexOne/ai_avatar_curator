@@ -4,12 +4,15 @@ This document provides specialized instructions for AI agents working on the AI 
 
 ## 1. Data Acquisition Workflow
 
-The goal is to curate a high-quality dataset of a specific person to ensure accurate AI model training.
+The data acquisition process is divided into two primary phases:
+1. **Initial Aggregation:** A broad, slightly fuzzy search (including reverse image search) to cast a wide net across multiple sources.
+2. **Refined Filtering:** Using AI-driven facial recognition combined with human verification to ensure the dataset exclusively contains the target subject.
 
 ### 1.1 Search & Retrieval
-- **Tools:** Use SerpApi (Google Images), Bing Search API, or specialized social media scrapers.
+- **Tools:** Use SerpApi (Google Images, Yandex Images), Bing Search API, and social media platforms (e.g., Instagram, LinkedIn).
 - **Strategy:**
-    - Perform "Advanced Web Search" by combining keywords (e.g., "Person Name headshot", "Person Name interview", "Person Name red carpet").
+    - **Fuzzy & Reverse Search:** Use SerpApi's Yandex and Google engines to perform reverse image searches using reference photos.
+    - **Keyword Expansion:** Combine keywords (e.g., "Person Name headshot", "Person Name interview", "Person Name red carpet").
     - Prioritize high-resolution sources (e.g., photography portfolios, news sites).
     - Handle pagination and rate limiting to avoid blocks.
     - Log search queries and result counts for reproducibility.
@@ -24,10 +27,11 @@ The goal is to curate a high-quality dataset of a specific person to ensure accu
 - **Metadata:** Store image source URL, timestamp, and original filename in a `metadata.json` file.
 
 ### 1.3 Filtering & Quality Assessment
-- **Facial Recognition:**
-    - Use `face_recognition` or `Mediapipe` to detect faces.
+- **Facial Recognition & Human Validation:**
+    - Use `face_recognition` or `Mediapipe` to detect faces and generate embeddings.
     - Discard images with multiple faces or no faces.
-    - Validate that the detected face matches the target subject using a reference embedding.
+    - **AI Validation:** Automatically compare detected faces against a reference embedding to filter out different individuals.
+    - **Human-in-the-Loop:** Implement a verification step (UI or CLI) for manual review of borderline AI scores and final dataset validation.
 - **Sharpness Check:**
     - Calculate the Laplacian variance (OpenCV).
     - Threshold: Discard images with a variance below a configurable limit (e.g., 100).

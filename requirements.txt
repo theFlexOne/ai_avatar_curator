@@ -1,9 +1,12 @@
 # Core
 requests
 aiohttp
+playwright
 python-dotenv
 pyyaml
+pydantic
 tqdm
+streamlit
 
 # Image Processing & AI
 opencv-python-headless

@@ -12,7 +12,11 @@ This project provides tools to search, download, and filter images of a target s
 
 ## Project Structure
 - `data/`: Raw and processed images (ignored by git).
-- `src/`: Source code for scrapers and filters.
+- `src/`: Source code including:
+  - `scrapers/`: Search and download modules.
+  - `filters/`: Face detection and quality checks.
+  - `processors/`: Cropping and normalization.
+  - `ui/`: Streamlit dashboard for review.
 - `instructions.md`: Detailed AI workflow instructions.
 - `rules.md`: Project coding standards.
 

@@ -3,6 +3,10 @@
 search:
   max_results_per_query: 100
   download_concurrency: 5
+  engines:
+    - google_images
+    - yandex_images
+    - bing_images
 
 filtering:
   min_resolution: [512, 512]
@@ -13,5 +17,12 @@ filtering:
 
 paths:
   raw_dir: "data/raw"
+  interim_dir: "data/interim"
+  review_dir: "data/review"
   processed_dir: "data/processed"
   metadata_file: "data/metadata.json"
+
+ui:
+  port: 8501
+  theme: "dark"
+  batch_size: 20
