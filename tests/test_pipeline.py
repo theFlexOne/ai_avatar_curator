@@ -5,7 +5,6 @@ from unittest.mock import patch, AsyncMock
 # Import actual classes from the project
 from src.scrapers.manager import ScraperManager
 from src.schemas import ProjectState, SearchConfig, ScrapedImageResult, ImageMetadata, ProcessingStatus
-from src.context import ProjectContext
 from datetime import datetime
 
 @pytest.mark.asyncio
